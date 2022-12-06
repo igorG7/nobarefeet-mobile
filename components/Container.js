@@ -7,6 +7,6 @@ export default function Container({ children }) {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: "#7b98c7",
+    backgroundColor: "#fff",
   },
 });

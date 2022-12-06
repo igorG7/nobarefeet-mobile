@@ -14,6 +14,7 @@ export default function Header() {
         {/* <Appbar.BackAction onPress={_goBack} /> */}
         <Appbar.Content title="NOBAREFEET" />
         <Appbar.Action icon="magnify" onPress={_handleSearch} />
+        {/* <Appbar.Action icon="plus-box-outline" onPress={_handleSearch} /> */}
         <Appbar.Action icon="cart" onPress={_handleSearch} />
         <Appbar.Action icon="account" onPress={_handleSearch} />
         {/* <Appbar.Action icon="dots-vertical" onPress={_handleMore} /> */}
@@ -23,10 +24,9 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
-  main: {
-    margin: 8,
-    backgroundColor: "#878384",
-  },
-
   header: {},
+
+  title: {
+    fontSize: 16,
+  },
 });
