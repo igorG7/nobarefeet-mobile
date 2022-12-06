@@ -1,6 +1,13 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import Home from "../nobarefeet-mobile/pages/Home";
+import { NavigationContainer } from "@react-navigation/native";
+import UserProvider from "./context/UserProvider";
+import NavigationScreens from "./navigation/NavigationScreens";
+
 export default function App() {
-  return <Home />;
+  return (
+    <UserProvider>
+      <NavigationContainer>
+        <NavigationScreens />
+      </NavigationContainer>
+    </UserProvider>
+  );
 }
