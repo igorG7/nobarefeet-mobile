@@ -33,23 +33,9 @@ export default function Home({ navigation }) {
     <Container>
       <SafeAreaView>
         <ScrollView>
-          <View>
-            <Header />
-          </View>
-
           <View style={styles.main}>
             <View>
               <Text>Carrosel aqui</Text>
-
-              <Button
-                title="perfil"
-                onPress={() => navigation.navigate("Perfil")}
-              ></Button>
-
-              <Button
-                title="login"
-                onPress={() => navigation.navigate("Login")}
-              ></Button>
             </View>
 
             <View style={styles.view_products}>

@@ -34,10 +34,6 @@ export default function Product_Page({ navigation, route }) {
       <SafeAreaView>
         <ScrollView>
           <View>
-            <View>
-              <Header />
-            </View>
-
             <View style={styles.main}>
               <Pressable onPress={() => navigation.goBack()}>
                 <View style={styles.view_back}>
@@ -127,7 +123,6 @@ export default function Product_Page({ navigation, route }) {
                     Talvez você também goste
                   </Text>
                   <Pressable onPress={() => navigation.push("Produto")}>
-                    <Product_Component />
                     <Product_Component />
                   </Pressable>
                 </View>

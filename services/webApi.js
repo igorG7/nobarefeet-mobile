@@ -1,1 +1,1 @@
-export const Url_base = "https://olive-apples-shine-138-0-174-248.loca.lt/";
+export const Url_base = "https://plenty-jars-kiss-201-148-115-220.loca.lt/";

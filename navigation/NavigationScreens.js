@@ -14,21 +14,42 @@ const Stack = createNativeStackNavigator();
 export default function NavigationScreens() {
   return (
     <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Home"
       screenOptions={{
-        title: "",
-        headerTransparent: true,
-        headerShown: false,
+        header: (props) => <Header {...props} />,
       }}
     >
       <Stack.Screen name="Perfil" component={User_Profile} />
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Descrição" component={Desc_Page} />
-      <Stack.Screen name="Criar Ad" component={Create_AD} />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="Descrição"
+        component={Desc_Page}
+        options={{
+          header: () => null,
+        }}
+      />
+      <Stack.Screen
+        name="Criar Ad"
+        component={Create_AD}
+        options={{
+          header: () => null,
+        }}
+      />
       <Stack.Screen name="Produto" component={Product_Page} />
-      <Stack.Screen name="Registro" component={Register} />
-      <Stack.Screen name="Header" component={Header} />
+      <Stack.Screen
+        name="Registro"
+        component={Register}
+        options={{
+          header: () => null,
+        }}
+      />
     </Stack.Navigator>
   );
 }

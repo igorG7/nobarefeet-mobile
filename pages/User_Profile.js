@@ -29,10 +29,6 @@ export default function Home({ navigation }) {
       <View>
         <SafeAreaView>
           <ScrollView>
-            <View>
-              <Header />
-            </View>
-
             <View style={styles.main}>
               <Pressable onPress={() => navigation.goBack()}>
                 <View style={styles.view_back}>

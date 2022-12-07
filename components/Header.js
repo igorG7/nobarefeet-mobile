@@ -1,23 +1,35 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { Appbar } from "react-native-paper";
 
-export default function Header() {
-  const _goBack = () => console.log("Went back");
+import { useUser } from "../context/UserProvider";
 
-  const _handleSearch = () => console.log("Searching");
+export default function Header({ navigation }) {
+  const { signed } = useUser();
+  const iconUser = "account";
+  const iconLogin = "login";
 
-  const _handleMore = () => console.log("Shown more");
+  function redirectLogin() {
+    navigation.navigate("Login");
+  }
+
+  function redirectProfileUser() {
+    navigation.navigate("Perfil");
+  }
+
   return (
     <View>
       <Appbar.Header style={styles.header}>
-        {/* <Appbar.BackAction onPress={_goBack} /> */}
-        <Appbar.Content title="NOBAREFEET" />
-        <Appbar.Action icon="magnify" onPress={_handleSearch} />
-        {/* <Appbar.Action icon="plus-box-outline" onPress={_handleSearch} /> */}
-        <Appbar.Action icon="cart" onPress={_handleSearch} />
-        <Appbar.Action icon="account" onPress={_handleSearch} />
-        {/* <Appbar.Action icon="dots-vertical" onPress={_handleMore} /> */}
+        <Appbar.Content
+          title="NOBAREFEET"
+          onPress={() => navigation.popToTop()}
+        />
+        <Appbar.Action icon="magnify" />
+
+        <Appbar.Action icon="cart" />
+        <Appbar.Action
+          icon={signed == true ? iconUser : iconLogin}
+          onPress={signed == true ? redirectProfileUser : redirectLogin}
+        />
       </Appbar.Header>
     </View>
   );
