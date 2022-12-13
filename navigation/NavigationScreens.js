@@ -6,6 +6,9 @@ import Product_Page from "../pages/Product_Page";
 import Register from "../pages/Register";
 import Header from "../components/Header";
 import User_Profile from "../pages/User_Profile";
+import User_ADS_List from "../pages/User_ADS_List";
+import Prod_Management from "../pages/Prod_Management";
+import Edit_Ad from "../pages/Edit_Ad";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -20,7 +23,9 @@ export default function NavigationScreens() {
       }}
     >
       <Stack.Screen name="Perfil" component={User_Profile} />
+
       <Stack.Screen name="Home" component={Home} />
+
       <Stack.Screen
         name="Login"
         component={Login}
@@ -28,6 +33,7 @@ export default function NavigationScreens() {
           header: () => null,
         }}
       />
+
       <Stack.Screen
         name="Descrição"
         component={Desc_Page}
@@ -35,6 +41,7 @@ export default function NavigationScreens() {
           header: () => null,
         }}
       />
+
       <Stack.Screen
         name="Criar Ad"
         component={Create_AD}
@@ -42,10 +49,24 @@ export default function NavigationScreens() {
           header: () => null,
         }}
       />
+
       <Stack.Screen name="Produto" component={Product_Page} />
+
       <Stack.Screen
         name="Registro"
         component={Register}
+        options={{
+          header: () => null,
+        }}
+      />
+
+      <Stack.Screen name="Meus anúncios" component={User_ADS_List} />
+
+      <Stack.Screen name="Gerenciar Prod" component={Prod_Management} />
+
+      <Stack.Screen
+        name="Editar Ad"
+        component={Edit_Ad}
         options={{
           header: () => null,
         }}

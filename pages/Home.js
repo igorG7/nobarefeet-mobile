@@ -24,7 +24,6 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     importAD().then((res) => {
-      console.log(res);
       setDataAnnouncement(res);
     });
   }, [isFocused]);
