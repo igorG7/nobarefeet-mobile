@@ -8,25 +8,41 @@ import {
   SafeAreaView,
   ScrollView,
   Pressable,
+  Alert,
 } from "react-native";
 
-import { Divider, Button } from "react-native-paper";
-import Product_Component from "../components/Product_Component";
+import { Divider, Button, List } from "react-native-paper";
 import Container from "../components/Container";
-import Header from "../components/Header";
 
 import { useUser } from "../context/UserProvider";
 import { adsUser } from "../services/productServices";
 
 export default function Home({ navigation }) {
-  const { name, id } = useUser();
+  const { name, id, setSigned } = useUser();
   const [dataUser, setDataUser] = useState([]);
 
   const userID = id;
 
+  const confirmLogout = () => {
+    setSigned(false);
+    navigation.popToTop();
+  };
+
+  const logout = () => {
+    Alert.alert("", "Deseja encerrar a sessão com esta conta?", [
+      {
+        text: "Não",
+      },
+      {
+        text: "Sim",
+        onPress: confirmLogout,
+      },
+    ]);
+  };
+
   return (
     <Container>
-      <View>
+      <View style={styles.align_views}>
         <SafeAreaView>
           <ScrollView>
             <View style={styles.main}>
@@ -46,21 +62,52 @@ export default function Home({ navigation }) {
                   <Image source={require("../assets/user.png")} />
                 </View>
 
-                <Text> Olá {name}</Text>
+                <Text style={{ fontSize: 18 }}>Olá</Text>
+                <Text style={styles.text_name}>{name}</Text>
               </View>
 
               <Divider />
 
-              <Button
-                icon="plus-box-outline"
-                mode="contained"
-                onPress={() => navigation.navigate("Criar Ad")}
-              >
-                Criar anúncio
-              </Button>
+              <View style={styles.list_view}>
+                <Pressable>
+                  <List.Item
+                    title="Editar perfil"
+                    right={(props) => (
+                      <List.Icon {...props} icon="account-edit-outline" />
+                    )}
+                  />
+                </Pressable>
 
-              <View>
-                <Text style={styles.ad_text}>Meus anúncios</Text>
+                <Divider />
+
+                <Pressable onPress={() => navigation.navigate("Criar Ad")}>
+                  <List.Item
+                    title="Criar anúncio"
+                    right={(props) => (
+                      <List.Icon {...props} icon="plus-box-outline" />
+                    )}
+                  />
+                </Pressable>
+
+                <Divider />
+
+                <Pressable onPress={() => navigation.navigate("Meus anúncios")}>
+                  <List.Item
+                    title="Meus anúncios"
+                    right={(props) => (
+                      <List.Icon {...props} icon="storefront-outline" />
+                    )}
+                  />
+                </Pressable>
+
+                <Divider />
+
+                <Pressable onPress={logout}>
+                  <List.Item
+                    title="Sair da conta"
+                    right={(props) => <List.Icon {...props} icon="logout" />}
+                  />
+                </Pressable>
               </View>
             </View>
           </ScrollView>
@@ -74,6 +121,12 @@ const styles = StyleSheet.create({
   main: {
     margin: 8,
     backgroundColor: "#fff",
+  },
+
+  text_name: {
+    fontSize: 20,
+    fontWeight: "normal",
+    marginBottom: 16,
   },
 
   view_back: {
@@ -109,6 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginVertical: 16,
   },
+
   tinyLogo: {
     width: 150,
     height: 150,

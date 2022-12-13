@@ -8,6 +8,7 @@ import {
   ScrollView,
   Pressable,
   Alert,
+  Platform,
 } from "react-native";
 import {
   TextInput,
@@ -15,21 +16,20 @@ import {
   Divider,
   Button,
   Card,
-  Title,
   Paragraph,
 } from "react-native-paper";
-import ImagePicker from "react-native-image-picker";
+
+import * as ImagePicker from "expo-image-picker";
 import Container from "../components/Container";
 import Input from "../components/Input";
+import ButtonImg from "../components/ButtonImg";
 
-import { creatAD } from "../services/productServices";
+import { creatAD, pickImage } from "../services/productServices";
 import { useUser } from "../context/UserProvider";
 
 export default function Create_AD({ navigation }) {
   const [checked, setChecked] = useState("first");
-
   const { id, name } = useUser();
-
   const [model, setModel] = useState("Air Max 95");
   const [color, setColor] = useState("Preto");
   const [description, setDescription] = useState(
@@ -42,11 +42,77 @@ export default function Create_AD({ navigation }) {
   const [conservation, setConservation] = useState("Novo");
   const [original, setOriginal] = useState("Sim");
   const [acceptChange, setAcceptChange] = useState("Não");
+  const [image, setImage] = useState(null);
+  const [imageTwo, setImageTwo] = useState(null);
+  const [imageThree, setImageThree] = useState(null);
+  const [imageFour, setImageFour] = useState(null);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
+  const pickImage_Two = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImageTwo(result.assets[0].uri);
+    }
+  };
+
+  const pickImage_Three = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImageThree(result.assets[0].uri);
+    }
+  };
+
+  const pickImage_Four = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      setImageFour(result.assets[0].uri);
+    }
+  };
 
   const handleSubmitAd = () => {
     creatAD({
-      urlImg:
-        "https://cf.shopee.com.br/file/43a919af3de2e414b47a10f272254c6a_tn",
+      urlImg: image,
+      urlImgTwo: imageTwo,
+      urlImgThree: imageThree,
+      urlImgFour: imageFour,
       model: model,
       color: color,
       description: description,
@@ -58,6 +124,7 @@ export default function Create_AD({ navigation }) {
       conservation: conservation,
       original: original,
       acceptChange: acceptChange,
+      status: true,
     }).then((res) => {
       console.log(res);
 
@@ -95,6 +162,46 @@ export default function Create_AD({ navigation }) {
                   source={require("../assets/arrow-left.png")}
                 />
               </Pressable>
+            </View>
+
+            <View style={styles.content_views}>
+              <Text style={styles.texts_views}>Imagens *</Text>
+
+              <View style={styles.align_View_Imgs}>
+                <View style={styles.view_pickImg}>
+                  <ButtonImg onPress={pickImage} />
+                  {image && (
+                    <Image source={{ uri: image }} style={styles.pick_img} />
+                  )}
+                </View>
+                <View style={styles.view_pickImg}>
+                  <ButtonImg onPress={pickImage_Two} />
+                  {image && (
+                    <Image source={{ uri: imageTwo }} style={styles.pick_img} />
+                  )}
+                </View>
+              </View>
+
+              <View style={styles.align_View_Imgs}>
+                <View style={styles.view_pickImg}>
+                  <ButtonImg onPress={pickImage_Three} />
+                  {image && (
+                    <Image
+                      source={{ uri: imageThree }}
+                      style={styles.pick_img}
+                    />
+                  )}
+                </View>
+                <View style={styles.view_pickImg}>
+                  <ButtonImg onPress={pickImage_Four} />
+                  {image && (
+                    <Image
+                      source={{ uri: imageFour }}
+                      style={styles.pick_img}
+                    />
+                  )}
+                </View>
+              </View>
             </View>
 
             <View style={styles.content_views}>
@@ -298,6 +405,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     marginVertical: 8,
+  },
+
+  align_View_Imgs: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: 8,
+  },
+
+  view_pickImg: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  pick_img: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    margin: 8,
   },
 
   secondary_text: {
