@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import { StyleSheet, Text, View, Image, Alert } from "react-native";
 import { Button } from "react-native-paper";
 import Container from "../components/Container";
@@ -9,26 +10,42 @@ import { login } from "../services/auth_service";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("giovane67@gmail.com");
-  const [password, setPassword] = useState("igor123");
-
+  const name = "teste";
+  const [password, setPassword] = useState("teste");
+  const [statusRequest, setStatusRequest] = useState();
   const { setSigned, setName, setId } = useUser();
 
-  const handleLogin = () => {
-    login({
-      email: email,
-      password: password,
-    }).then((res) => {
-      console.log(res);
+  const login = async () => {
+    try {
+      return await axios
+        .post(
+          `https://no-bare-feet-api-1670964769587.azurewebsites.net/login`,
+          { nome: name, senha: password }
+        )
+        .then(
+          (response) => {
+            console.log(response.data);
+            console.log(response.status);
+            setStatusRequest(response.data.status);
+            console.log(statusRequest);
+            setId(response.data.id);
+            setName(response.data.nomeUsuario);
+            setSigned(true);
 
-      if (res && res.user) {
-        setSigned(true);
-        setName(res.user.name);
-        setId(res.user.id);
-        navigation.navigate("Home");
-      } else {
-        Alert.alert("Atenção", "Email ou senha incorretos");
-      }
-    });
+            if (statusRequest === "OK") {
+              navigation.navigate("Home");
+            } else {
+              Alert.alert("Atenção", "Email ou senha incorretos");
+            }
+          },
+          (error) => {
+            console.log(error);
+            return null;
+          }
+        );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -51,7 +68,7 @@ export default function Login({ navigation }) {
               <Input
                 label="Email"
                 keyboardType="email-address"
-                value={email}
+                value={name}
                 onChangeText={(text) => setEmail(text)}
               />
 
@@ -64,11 +81,7 @@ export default function Login({ navigation }) {
             </View>
 
             <View style={styles.viewButtons}>
-              <Button
-                style={styles.buttons}
-                mode="elevated"
-                onPress={handleLogin}
-              >
+              <Button style={styles.buttons} mode="elevated" onPress={login}>
                 Entrar
               </Button>
 

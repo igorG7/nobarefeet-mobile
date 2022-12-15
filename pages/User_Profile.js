@@ -15,12 +15,9 @@ import { Divider, Button, List } from "react-native-paper";
 import Container from "../components/Container";
 
 import { useUser } from "../context/UserProvider";
-import { adsUser } from "../services/productServices";
 
 export default function Home({ navigation }) {
   const { name, id, setSigned } = useUser();
-  const [dataUser, setDataUser] = useState([]);
-
   const userID = id;
 
   const confirmLogout = () => {
@@ -69,7 +66,11 @@ export default function Home({ navigation }) {
               <Divider />
 
               <View style={styles.list_view}>
-                <Pressable>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate("Editar Perfil", { nameUser: name })
+                  }
+                >
                   <List.Item
                     title="Editar perfil"
                     right={(props) => (

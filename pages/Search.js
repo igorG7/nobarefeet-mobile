@@ -4,44 +4,57 @@ import {
   Text,
   View,
   Image,
-  Dimensions,
   SafeAreaView,
   ScrollView,
   Pressable,
-  Button,
 } from "react-native";
-import Product_Component from "../components/Product_Component";
-import Container from "../components/Container";
-import Header from "../components/Header";
 
-import { importAD } from "../services/productServices";
-import { Divider } from "react-native-paper";
+import { Button } from "react-native-paper";
+
+import Container from "../components/Container";
+import Input from "../components/Input";
+import { searchAD, importAD } from "../services/productServices";
 import { useIsFocused } from "@react-navigation/native";
 
-export default function Home({ navigation }) {
-  const [dataAnnouncement, setDataAnnouncement] = useState([]);
+export default function Search({ navigation }) {
+  const [queryResponse, setQueryResponse] = useState([]);
+  const [queryContent, setQueryContent] = useState();
   const isFocused = useIsFocused();
 
   useEffect(() => {
     importAD().then((res) => {
-      setDataAnnouncement(res);
+      setQueryResponse(res);
     });
   }, [isFocused]);
+
+  const handleSearch = () => {
+    searchAD(queryContent).then((res) => {
+      console.log(res);
+      console.log(queryContent);
+      setQueryResponse(res);
+    });
+  };
 
   return (
     <Container>
       <SafeAreaView>
         <ScrollView>
           <View style={styles.main}>
-            <View>
-              <Text>Carrosel aqui</Text>
-            </View>
-
             <View style={styles.view_products}>
+              <View>
+                <Input
+                  label="Pesquisar"
+                  onChangeText={(text) => setQueryContent(text)}
+                />
+                <Button onPress={handleSearch} icon="magnify" mode="contained">
+                  Buscar
+                </Button>
+              </View>
               <Text style={styles.view_products_text}>
                 Procure o produto ideal para você!
               </Text>
-              {dataAnnouncement.map((el) => (
+
+              {queryResponse.map((el) => (
                 <Pressable
                   onPress={() =>
                     navigation.navigate("Produto", {
@@ -71,7 +84,7 @@ export default function Home({ navigation }) {
                       </View>
 
                       <View style={styles.view_text}>
-                        <Text style={styles.text_price}>{el.price}</Text>
+                        <Text style={styles.text_price}>R$ {el.price}</Text>
                         <Text style={styles.text_name_product}>{el.model}</Text>
                         <Text style={styles.text_advertiser_name}>
                           Por: {el.nameAdvertiser}
@@ -96,7 +109,7 @@ const styles = StyleSheet.create({
   },
 
   view_products: {
-    marginTop: 128,
+    marginTop: 8,
   },
 
   view_products_text: {

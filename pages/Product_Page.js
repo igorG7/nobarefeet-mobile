@@ -92,7 +92,7 @@ export default function Product_Page({ navigation, route }) {
                 </View>
 
                 <View style={styles.view_price}>
-                  <Text style={styles.price}>R$ {price}</Text>
+                  <Text style={styles.price}>{price}</Text>
                   <Text>Por: {nameAdvertiser}</Text>
                 </View>
 

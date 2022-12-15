@@ -11,7 +11,7 @@ import {
 import { Button } from "react-native-paper";
 import Container from "../components/Container";
 import Input from "../components/Input";
-
+import { MaskInput } from "../components/Input";
 import { register } from "../services/auth_service";
 
 export default function Login({ navigation }) {
@@ -20,13 +20,19 @@ export default function Login({ navigation }) {
   const [cpf, setCpf] = useState("019.921.194-45");
   const [password, setPassword] = useState("igor123");
   const [confirmPassword, setConfirmPassword] = useState("igor123");
+  const [cell, setCell] = useState("(31) 98687-4522");
+  const [cep, setCEP] = useState("33943-670");
+  const [nasc, setNasc] = useState("01/06/1999");
 
   const handleRegister = () => {
     register({
-      name: name,
+      nome: name,
       email: email,
-      cpf: cpf,
-      password: password,
+      cpf_cnpj: cpf,
+      senha: password,
+      telefone: cell,
+      cep: cep,
+      data_nascimento: nasc,
     }).then((res) => {
       console.log(res);
 
@@ -41,8 +47,6 @@ export default function Login({ navigation }) {
         Alert.alert("Atenção usuário já existente.");
       }
     });
-
-    console.log(name, email, cpf, password);
   };
 
   return (
@@ -67,12 +71,6 @@ export default function Login({ navigation }) {
                   />
 
                   <Input
-                    label="CPF"
-                    value={cpf}
-                    onChangeText={(text) => setCpf(text)}
-                  />
-
-                  <Input
                     label="Email"
                     keyboardType="email-address"
                     value={email}
@@ -91,6 +89,42 @@ export default function Login({ navigation }) {
                     secureTextEntry
                     value={confirmPassword}
                     onChangeText={(text) => setConfirmPassword(text)}
+                  />
+
+                  <MaskInput
+                    type={"cpf"}
+                    value={cpf}
+                    onChangeText={(text) => setCpf(text)}
+                    placeholder="CPF"
+                  />
+
+                  <MaskInput
+                    type={"cel-phone"}
+                    options={{
+                      maskType: "BRL",
+                      withDDD: true,
+                      dddMask: "(99) ",
+                    }}
+                    value={cell}
+                    onChangeText={(text) => setCell(text)}
+                    placeholder="Celular"
+                  />
+
+                  <MaskInput
+                    type={"zip-code"}
+                    value={cep}
+                    onChangeText={(text) => setCEP(text)}
+                    placeholder="CEP"
+                  />
+
+                  <MaskInput
+                    type={"datetime"}
+                    options={{
+                      format: "DD/MM/YYYY",
+                    }}
+                    value={nasc}
+                    onChangeText={(text) => setNasc(text)}
+                    placeholder="Data de nascimento"
                   />
                 </View>
 

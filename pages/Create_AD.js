@@ -23,8 +23,8 @@ import * as ImagePicker from "expo-image-picker";
 import Container from "../components/Container";
 import Input from "../components/Input";
 import ButtonImg from "../components/ButtonImg";
-
-import { creatAD, pickImage } from "../services/productServices";
+import { MaskInput } from "../components/Input";
+import { creatAD } from "../services/productServices";
 import { useUser } from "../context/UserProvider";
 
 export default function Create_AD({ navigation }) {
@@ -41,11 +41,19 @@ export default function Create_AD({ navigation }) {
 
   const [conservation, setConservation] = useState("Novo");
   const [original, setOriginal] = useState("Sim");
-  const [acceptChange, setAcceptChange] = useState("Não");
-  const [image, setImage] = useState(null);
-  const [imageTwo, setImageTwo] = useState(null);
-  const [imageThree, setImageThree] = useState(null);
-  const [imageFour, setImageFour] = useState(null);
+  const [acceptChange, setAcceptChange] = useState(false);
+  const [image, setImage] = useState(
+    "https://cdn.shopify.com/s/files/1/1202/6102/files/introducing-the-nike-sb-nyjah-free-2-2.jpg?v=1596639749"
+  );
+  const [imageTwo, setImageTwo] = useState(
+    "https://media.karousell.com/media/photos/products/2022/10/11/nike_sb_nyjah_free_2_spiridon_1665453032_5ba57de0_progressive.jpg"
+  );
+  const [imageThree, setImageThree] = useState(
+    "https://cf.shopee.com.br/file/62c0b3eb9d35c6254e2f9e8d818e980d"
+  );
+  const [imageFour, setImageFour] = useState(
+    "https://i.pinimg.com/564x/37/d2/7e/37d27ecb286a6a30aeebc073a41fc3c1.jpg"
+  );
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -109,22 +117,22 @@ export default function Create_AD({ navigation }) {
 
   const handleSubmitAd = () => {
     creatAD({
-      urlImg: image,
-      urlImgTwo: imageTwo,
-      urlImgThree: imageThree,
-      urlImgFour: imageFour,
-      model: model,
-      color: color,
-      description: description,
-      brand: brand,
-      size: size,
-      price: price,
-      userID: id,
-      nameAdvertiser: name,
-      conservation: conservation,
-      original: original,
-      acceptChange: acceptChange,
-      status: true,
+      img1: image,
+      img2: imageTwo,
+      img3: imageThree,
+      img4: imageFour,
+      modelo: model,
+      cor: color,
+      descricao: description,
+      marca: brand,
+      tamanho: size,
+      preco: price,
+      id_usuario: id,
+      nome_anunciante: name,
+      condicao: conservation,
+      tipo_produto: original,
+      aceitaTroca: acceptChange,
+      ativo: 1,
     }).then((res) => {
       console.log(res);
 
@@ -340,18 +348,18 @@ export default function Create_AD({ navigation }) {
               <View style={styles.view_radioB}>
                 <View style={styles.radio_align}>
                   <RadioButton
-                    value="Sim"
-                    status={acceptChange === "Sim" ? "checked" : "unchecked"}
-                    onPress={() => setAcceptChange("Sim")}
+                    value={true}
+                    status={acceptChange === true ? "checked" : "unchecked"}
+                    onPress={() => setAcceptChange(true)}
                   />
                   <Text>Sim</Text>
                 </View>
 
                 <View style={styles.radio_align}>
                   <RadioButton
-                    value="Não"
-                    status={acceptChange === "Não" ? "checked" : "unchecked"}
-                    onPress={() => setAcceptChange("Não")}
+                    value={false}
+                    status={acceptChange === false ? "checked" : "unchecked"}
+                    onPress={() => setAcceptChange(false)}
                   />
                   <Text>Não</Text>
                 </View>
@@ -362,12 +370,12 @@ export default function Create_AD({ navigation }) {
 
             <View style={styles.content_views}>
               <Text style={styles.texts_views}>Preço *</Text>
-              <Input
+              <MaskInput
+                type={"money"}
                 value={price}
                 placeholder={"0,00"}
                 keyboardType={"numeric"}
                 onChangeText={(text) => setPrice(text)}
-                left={<TextInput.Icon icon="currency-brl" />}
               />
             </View>
 

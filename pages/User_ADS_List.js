@@ -89,7 +89,7 @@ export default function Home({ navigation }) {
 
                       <View style={styles.view_text}>
                         <View>
-                          <Text style={styles.text_price}>R$ {el.price}</Text>
+                          <Text style={styles.text_price}>{el.price}</Text>
                           <Text style={styles.text_name_product}>
                             {el.model}
                           </Text>

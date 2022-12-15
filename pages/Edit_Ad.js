@@ -20,6 +20,7 @@ import {
 import ImagePicker from "react-native-image-picker";
 import Container from "../components/Container";
 import Input from "../components/Input";
+import { MaskInput } from "../components/Input";
 
 import { updateAD, getInfosAD } from "../services/productServices";
 import { UserContext } from "../context/UserProvider";
@@ -56,15 +57,15 @@ export default function Edit_Ad({ navigation, route }) {
 
   const handleUpdateAd = () => {
     updateAD(id, {
-      model: model,
-      color: color_edit,
-      description: description_edit,
-      brand: brand_edit,
-      size: size_edit,
-      price: price_edit,
-      conservation: conservation_edit,
-      original: original_edit,
-      acceptChange: acceptChange_edit,
+      modelo: model,
+      cor: color_edit,
+      descricao: description_edit,
+      marca: brand_edit,
+      tamanho: size_edit,
+      preco: price_edit,
+      condicao: conservation_edit,
+      tipo_produto: original_edit,
+      aceitaTroca: acceptChange_edit,
     }).then((res) => {
       console.log(res);
 
@@ -277,12 +278,12 @@ export default function Edit_Ad({ navigation, route }) {
 
             <View style={styles.content_views}>
               <Text style={styles.texts_views}>Preço *</Text>
-              <Input
+              <MaskInput
+                type={"money"}
                 value={price_edit}
                 placeholder={"0,00"}
                 keyboardType={"numeric"}
                 onChangeText={(text) => setPrice_edit(text)}
-                left={<TextInput.Icon icon="currency-brl" />}
               />
             </View>
 
