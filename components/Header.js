@@ -16,6 +16,10 @@ export default function Header({ navigation }) {
     navigation.navigate("Perfil");
   }
 
+  function redirectSearch() {
+    navigation.navigate("Busca");
+  }
+
   return (
     <View>
       <Appbar.Header style={styles.header}>
@@ -23,7 +27,7 @@ export default function Header({ navigation }) {
           title="NOBAREFEET"
           onPress={() => navigation.popToTop()}
         />
-        <Appbar.Action icon="magnify" />
+        <Appbar.Action icon="magnify" onPress={redirectSearch} />
 
         <Appbar.Action icon="cart" />
         <Appbar.Action

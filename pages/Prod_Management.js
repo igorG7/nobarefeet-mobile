@@ -155,7 +155,7 @@ export default function Prod_Management({ navigation, route }) {
                 </View>
 
                 <View style={styles.view_price}>
-                  <Text style={styles.price}>R$ {price}</Text>
+                  <Text style={styles.price}>{price}</Text>
                   <Text>Status: {status == true ? "Ativo" : "Encerrado"}</Text>
                 </View>
 

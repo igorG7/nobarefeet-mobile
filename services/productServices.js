@@ -1,6 +1,5 @@
 import { Url_base } from "./webApi";
 import axios from "axios";
-import * as ImagePicker from "expo-image-picker";
 
 export const creatAD = async (param) => {
   try {
@@ -84,6 +83,19 @@ export const getInfosAD = async (id) => {
     return await axios.get(`${Url_base}/anuncios/${id}`).then((response) => {
       return response.data;
     });
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const searchAD = async (query) => {
+  try {
+    return await axios
+      .get(`${Url_base}/anuncios/?q=${query}`)
+      .then((response) => {
+        return response.data;
+      });
   } catch (error) {
     console.log(error);
     return null;

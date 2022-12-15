@@ -9,6 +9,8 @@ import User_Profile from "../pages/User_Profile";
 import User_ADS_List from "../pages/User_ADS_List";
 import Prod_Management from "../pages/Prod_Management";
 import Edit_Ad from "../pages/Edit_Ad";
+import Edit_User_Inof from "../pages/Edit_User_Info";
+import Search from "../pages/Search";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -64,6 +66,8 @@ export default function NavigationScreens() {
 
       <Stack.Screen name="Gerenciar Prod" component={Prod_Management} />
 
+      <Stack.Screen name="Busca" component={Search} />
+
       <Stack.Screen
         name="Editar Ad"
         component={Edit_Ad}
@@ -71,6 +75,8 @@ export default function NavigationScreens() {
           header: () => null,
         }}
       />
+
+      <Stack.Screen name="Editar Perfil" component={Edit_User_Inof} />
     </Stack.Navigator>
   );
 }
